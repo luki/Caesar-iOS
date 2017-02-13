@@ -66,20 +66,39 @@ class MainController: UIViewController {
     return button
   }()
   
-  let textView: UITextView = {
+  lazy var textView: UITextView = {
     let tv = UITextView()
     tv.textColor = UIColor.new(red: 166, green: 166, blue: 166)
     tv.font = UIFont.systemFont(ofSize: 21.5, weight: UIFontWeightRegular)
     tv.falseAutoresizingTranslation()
     tv.contentInset = UIEdgeInsets(top: 44, left: 44, bottom: 44, right: 44)
+    tv.delegate = self
+    tv.returnKeyType = .go
+    tv.text = "Type in your message..."
     return tv
+  }()
+  
+  let methodSelector: UISegmentedControl = {
+    let sc = UISegmentedControl(items: ["Encipher", "Decipher"])
+    sc.selectedSegmentIndex = 0
+    sc.falseAutoresizingTranslation()
+    return sc
+  }()
+  
+  let selectorLabel: UILabel = {
+    let label = UILabel()
+    label.text = "Method".uppercased()
+    label.font = UIFont.systemFont(ofSize: 11.5, weight: UIFontWeightMedium)
+    label.textColor = UIColor.new(red: 69, green: 90, blue: 100)
+    label.falseAutoresizingTranslation()
+    return label
   }()
 
   override func viewDidLoad() {
     super.viewDidLoad()
     shiftButton.titleLabel?.text = "233"
     addSubviews([selectionArea, textView])
-    addSubviewsTo(selectionArea, views: [button, shiftButton, shiftLabel])
+    addSubviewsTo(selectionArea, views: [button, shiftButton, shiftLabel, methodSelector, selectorLabel])
     addConstraints(view)
   }
   
@@ -102,8 +121,42 @@ class MainController: UIViewController {
       textView.leadingAnchor.constraint(equalTo: parentView.leadingAnchor),
       textView.trailingAnchor.constraint(equalTo: parentView.trailingAnchor),
       textView.bottomAnchor.constraint(equalTo: parentView.bottomAnchor),
-      textView.topAnchor.constraint(equalTo: selectionArea.bottomAnchor)
+      textView.topAnchor.constraint(equalTo: selectionArea.bottomAnchor),
+      
+      methodSelector.bottomAnchor.constraint(equalTo: shiftLabel.topAnchor, constant: -20),
+      methodSelector.leadingAnchor.constraint(equalTo: parentView.leadingAnchor, constant: 44),
+      
+      selectorLabel.bottomAnchor.constraint(equalTo: methodSelector.topAnchor, constant: -8),
+      selectorLabel.leadingAnchor.constraint(equalTo: parentView.leadingAnchor, constant: 44)
     ])
   }
 }
 
+extension MainController: UITextViewDelegate {
+  func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
+    textView.text = ""
+    return true
+  }
+  func textViewDidBeginEditing(_ textView: UITextView) {
+    textView.becomeFirstResponder()
+  }
+  func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+    if text == "\n" {
+      
+      // NOTE: Check if key is available
+      
+      switch methodSelector.selectedSegmentIndex {
+        case 0:
+          print(encipher(offset: 5, message: textView.text).message)
+        case 1:
+          print(decipher(offset: 5, message: textView.text))
+        default:
+          print("Something weird has been selected")
+      }
+      textView.resignFirstResponder()
+    }
+    return true
+  }
+
+  
+}
