@@ -105,8 +105,5 @@ class MainController: UIViewController {
       textView.topAnchor.constraint(equalTo: selectionArea.bottomAnchor)
     ])
   }
-
-
-
 }
 

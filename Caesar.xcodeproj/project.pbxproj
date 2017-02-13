@@ -13,6 +13,7 @@
 		0B05E7731E4FC8DD00D7DC82 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0B05E7721E4FC8DD00D7DC82 /* Assets.xcassets */; };
 		0B05E7761E4FC8DD00D7DC82 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0B05E7741E4FC8DD00D7DC82 /* LaunchScreen.storyboard */; };
 		0BC202111E51FA2300B6D5C1 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BC202101E51FA2300B6D5C1 /* CloudKit.framework */; };
+		0BC202131E52183200B6D5C1 /* Algorithms.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BC202121E52183200B6D5C1 /* Algorithms.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +26,7 @@
 		0B05E7771E4FC8DD00D7DC82 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0BC2020E1E51F7DF00B6D5C1 /* Caesar.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Caesar.entitlements; sourceTree = "<group>"; };
 		0BC202101E51FA2300B6D5C1 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
+		0BC202121E52183200B6D5C1 /* Algorithms.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Algorithms.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +64,7 @@
 				0BC2020E1E51F7DF00B6D5C1 /* Caesar.entitlements */,
 				0B05E7681E4FC8DD00D7DC82 /* AppDelegate.swift */,
 				0B05E76A1E4FC8DD00D7DC82 /* MainController.swift */,
+				0BC202121E52183200B6D5C1 /* Algorithms.swift */,
 				0B05E7721E4FC8DD00D7DC82 /* Assets.xcassets */,
 				0B05E7741E4FC8DD00D7DC82 /* LaunchScreen.storyboard */,
 				0B05E7771E4FC8DD00D7DC82 /* Info.plist */,
@@ -159,6 +162,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0B05E76B1E4FC8DD00D7DC82 /* MainController.swift in Sources */,
+				0BC202131E52183200B6D5C1 /* Algorithms.swift in Sources */,
 				0B05E7711E4FC8DD00D7DC82 /* Caesar.xcdatamodeld in Sources */,
 				0B05E7691E4FC8DD00D7DC82 /* AppDelegate.swift in Sources */,
 			);
