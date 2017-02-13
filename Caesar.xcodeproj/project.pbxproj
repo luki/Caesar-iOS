@@ -8,22 +8,23 @@
 
 /* Begin PBXBuildFile section */
 		0B05E7691E4FC8DD00D7DC82 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B05E7681E4FC8DD00D7DC82 /* AppDelegate.swift */; };
-		0B05E76B1E4FC8DD00D7DC82 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B05E76A1E4FC8DD00D7DC82 /* ViewController.swift */; };
-		0B05E76E1E4FC8DD00D7DC82 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0B05E76C1E4FC8DD00D7DC82 /* Main.storyboard */; };
+		0B05E76B1E4FC8DD00D7DC82 /* MainController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B05E76A1E4FC8DD00D7DC82 /* MainController.swift */; };
 		0B05E7711E4FC8DD00D7DC82 /* Caesar.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0B05E76F1E4FC8DD00D7DC82 /* Caesar.xcdatamodeld */; };
 		0B05E7731E4FC8DD00D7DC82 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0B05E7721E4FC8DD00D7DC82 /* Assets.xcassets */; };
 		0B05E7761E4FC8DD00D7DC82 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0B05E7741E4FC8DD00D7DC82 /* LaunchScreen.storyboard */; };
+		0BC202111E51FA2300B6D5C1 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BC202101E51FA2300B6D5C1 /* CloudKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		0B05E7651E4FC8DD00D7DC82 /* Caesar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Caesar.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0B05E7681E4FC8DD00D7DC82 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		0B05E76A1E4FC8DD00D7DC82 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		0B05E76D1E4FC8DD00D7DC82 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		0B05E76A1E4FC8DD00D7DC82 /* MainController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainController.swift; sourceTree = "<group>"; };
 		0B05E7701E4FC8DD00D7DC82 /* Caesar.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Caesar.xcdatamodel; sourceTree = "<group>"; };
 		0B05E7721E4FC8DD00D7DC82 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0B05E7751E4FC8DD00D7DC82 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0B05E7771E4FC8DD00D7DC82 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0BC2020E1E51F7DF00B6D5C1 /* Caesar.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Caesar.entitlements; sourceTree = "<group>"; };
+		0BC202101E51FA2300B6D5C1 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,6 +32,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0BC202111E51FA2300B6D5C1 /* CloudKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -42,6 +44,7 @@
 			children = (
 				0B05E7671E4FC8DD00D7DC82 /* Caesar */,
 				0B05E7661E4FC8DD00D7DC82 /* Products */,
+				0BC2020F1E51FA2300B6D5C1 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -56,15 +59,23 @@
 		0B05E7671E4FC8DD00D7DC82 /* Caesar */ = {
 			isa = PBXGroup;
 			children = (
+				0BC2020E1E51F7DF00B6D5C1 /* Caesar.entitlements */,
 				0B05E7681E4FC8DD00D7DC82 /* AppDelegate.swift */,
-				0B05E76A1E4FC8DD00D7DC82 /* ViewController.swift */,
-				0B05E76C1E4FC8DD00D7DC82 /* Main.storyboard */,
+				0B05E76A1E4FC8DD00D7DC82 /* MainController.swift */,
 				0B05E7721E4FC8DD00D7DC82 /* Assets.xcassets */,
 				0B05E7741E4FC8DD00D7DC82 /* LaunchScreen.storyboard */,
 				0B05E7771E4FC8DD00D7DC82 /* Info.plist */,
 				0B05E76F1E4FC8DD00D7DC82 /* Caesar.xcdatamodeld */,
 			);
 			path = Caesar;
+			sourceTree = "<group>";
+		};
+		0BC2020F1E51FA2300B6D5C1 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				0BC202101E51FA2300B6D5C1 /* CloudKit.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -101,6 +112,14 @@
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = 42YT2Y78T5;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+							com.apple.iCloud = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -129,7 +148,6 @@
 			files = (
 				0B05E7761E4FC8DD00D7DC82 /* LaunchScreen.storyboard in Resources */,
 				0B05E7731E4FC8DD00D7DC82 /* Assets.xcassets in Resources */,
-				0B05E76E1E4FC8DD00D7DC82 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -140,7 +158,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0B05E76B1E4FC8DD00D7DC82 /* ViewController.swift in Sources */,
+				0B05E76B1E4FC8DD00D7DC82 /* MainController.swift in Sources */,
 				0B05E7711E4FC8DD00D7DC82 /* Caesar.xcdatamodeld in Sources */,
 				0B05E7691E4FC8DD00D7DC82 /* AppDelegate.swift in Sources */,
 			);
@@ -149,14 +167,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		0B05E76C1E4FC8DD00D7DC82 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				0B05E76D1E4FC8DD00D7DC82 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		0B05E7741E4FC8DD00D7DC82 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -265,8 +275,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Caesar/Caesar.entitlements;
 				DEVELOPMENT_TEAM = 42YT2Y78T5;
 				INFOPLIST_FILE = Caesar/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = guru.luke.Caesar;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -278,8 +290,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Caesar/Caesar.entitlements;
 				DEVELOPMENT_TEAM = 42YT2Y78T5;
 				INFOPLIST_FILE = Caesar/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = guru.luke.Caesar;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -306,6 +320,7 @@
 				0B05E77C1E4FC8DD00D7DC82 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
