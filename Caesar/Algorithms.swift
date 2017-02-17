@@ -52,7 +52,7 @@ public func shiftSequence(offset: Int, baseSequence: String) -> String {
   return newSequence
 }
 
-public func encipher(offset: Int, message: String) -> (offset: Int, message: String) {
+public func encipher(offset: Int, message: String) -> String {
   let base = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
   
   var baseSeq = [String]()
@@ -77,7 +77,7 @@ public func encipher(offset: Int, message: String) -> (offset: Int, message: Str
     }
   }
   
-  return (offset, newString)
+  return newString
 }
 
 public func decipher(offset: Int, message: String) -> String {

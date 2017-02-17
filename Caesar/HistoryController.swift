@@ -16,11 +16,23 @@ extension UIView {
 }
 
 class HistoryController: UIViewController {
-  
-  let publicDb = CKContainer.default().publicCloudDatabase
-  let cipherHistory: [Cipher] = [
+
+  var cipherHistory: [Cipher] = [
     Cipher(offset: 5, appliedMethod: 0, content: "Hi", date: Date())
   ]
+  
+  let publicDb = CKContainer(identifier: "iCloud.guru.luke.Caesar").publicCloudDatabase
+  
+//  func retrieveData() -> CKRecord {
+//    let query = CKQuery(recordType: "Cipher", predicate: NSPredicate(format: "TRUEPREDICATE"))
+//    
+//    query.sortDescriptors = [NSSortDescriptor(key: "date", ascending: true)]
+//    
+//    publicDb.perform(query, inZoneWith: nil) { record, error in
+//      
+//    }
+//    
+//  }
   
   let button: UIButton = {
     let button = UIButton(frame: CGRect(x: 0, y: 0, width: 88, height: 88))

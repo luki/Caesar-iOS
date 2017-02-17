@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CloudKit
 
 extension UIViewController {
   public func addSubviewsTo(_ view: UIView, views: [UIView]) {
@@ -35,7 +36,30 @@ extension UIColor {
 }
 
 class MainController: UIViewController {
+  
+  let publicDb = CKContainer(identifier: "iCloud.guru.luke.Caesar").publicCloudDatabase
+  let privateDb = CKContainer(identifier: "iCloud.guru.luke.Caesar").privateCloudDatabase
+  
+  let cipherHistory: [Cipher] = [
+    Cipher(offset: 5, appliedMethod: 0, content: "Hi", date: Date())
+  ]
+  
+  func createCipherRec(cipher: Cipher) {
+    let record = CKRecord(recordType: "Cipher")
+    record["appliedMethod"] = cipher.appliedMethod as CKRecordValue?
+    record["content"] = cipher.content as CKRecordValue?
+    record["date"] = cipher.date as CKRecordValue?
+    record["offset"] = cipher.offset as CKRecordValue?
     
+    publicDb.save(record) { record, error in
+      guard let record = record else {
+        print("Error saving record: ", error)
+        return
+      }
+      print("Successful saved record: ", record)
+    }
+  }
+  
   let selectionArea: UIView = {
     let sa = UIView()
     sa.backgroundColor = UIColor.new(red: 38, green: 50, blue: 56)
@@ -68,7 +92,7 @@ class MainController: UIViewController {
     let label = UILabel()
     label.font = UIFont(name: "Okomito-Light", size: 23)
     label.textColor = .white
-    label.text = ""
+    label.text = "21"
     label.falseAutoresizingTranslation()
     return label
   }()
@@ -161,14 +185,21 @@ extension MainController: UITextViewDelegate {
     if text == "\n" {
       // NOTE: Check if key is available
       if !(shiftButton.text?.isEmpty)! {
+        let offset = Int(shiftButton.text!)
+        let content = textView.text
+        let date = Date()
+        
+        var cipher: Cipher!
+        
         switch methodSelector.selectedSegmentIndex {
           case 0:
-            print(encipher(offset: 5, message: textView.text).message)
+            cipher = Cipher(offset: offset!, appliedMethod: methodSelector.selectedSegmentIndex, content: encipher(offset: offset!, message: content!), date: date)
           case 1:
-            print(decipher(offset: 5, message: textView.text))
+            cipher = Cipher(offset: offset!, appliedMethod: methodSelector.selectedSegmentIndex, content: decipher(offset: offset!, message: content!), date: date)
           default:
             print("Something weird has been selected")
         }
+        createCipherRec(cipher: cipher)
         return true
       }
       let alert = createAlert(title: "No Shift Offset Found", message: "Please set it before applying cipher", style: .alert, actions: [
