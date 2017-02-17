@@ -12,8 +12,20 @@
 		0B05E7711E4FC8DD00D7DC82 /* Caesar.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0B05E76F1E4FC8DD00D7DC82 /* Caesar.xcdatamodeld */; };
 		0B05E7731E4FC8DD00D7DC82 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0B05E7721E4FC8DD00D7DC82 /* Assets.xcassets */; };
 		0B05E7761E4FC8DD00D7DC82 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0B05E7741E4FC8DD00D7DC82 /* LaunchScreen.storyboard */; };
+		0B4300071E5776E1004807F6 /* Okomito-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0B43FFFE1E5776E1004807F6 /* Okomito-Black.otf */; };
+		0B4300081E5776E1004807F6 /* Okomito-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0B43FFFF1E5776E1004807F6 /* Okomito-Bold.otf */; };
+		0B4300091E5776E1004807F6 /* Okomito-BoldItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0B4300001E5776E1004807F6 /* Okomito-BoldItalic.otf */; };
+		0B43000A1E5776E1004807F6 /* Okomito-Italic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0B4300011E5776E1004807F6 /* Okomito-Italic.otf */; };
+		0B43000B1E5776E1004807F6 /* Okomito-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0B4300021E5776E1004807F6 /* Okomito-Light.otf */; };
+		0B43000C1E5776E1004807F6 /* Okomito-LightItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0B4300031E5776E1004807F6 /* Okomito-LightItalic.otf */; };
+		0B43000D1E5776E1004807F6 /* Okomito-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0B4300041E5776E1004807F6 /* Okomito-Medium.otf */; };
+		0B43000E1E5776E1004807F6 /* Okomito-MediumItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0B4300051E5776E1004807F6 /* Okomito-MediumItalic.otf */; };
+		0B43000F1E5776E1004807F6 /* Okomito-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0B4300061E5776E1004807F6 /* Okomito-Regular.otf */; };
+		0B4300111E5776E8004807F6 /* EULA.txt in Resources */ = {isa = PBXBuildFile; fileRef = 0B4300101E5776E8004807F6 /* EULA.txt */; };
 		0BC202111E51FA2300B6D5C1 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BC202101E51FA2300B6D5C1 /* CloudKit.framework */; };
 		0BC202131E52183200B6D5C1 /* Algorithms.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BC202121E52183200B6D5C1 /* Algorithms.swift */; };
+		0BC202151E5246F300B6D5C1 /* HistoryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BC202141E5246F300B6D5C1 /* HistoryController.swift */; };
+		0BC202171E52529C00B6D5C1 /* Cipher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BC202161E52529C00B6D5C1 /* Cipher.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,9 +36,21 @@
 		0B05E7721E4FC8DD00D7DC82 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0B05E7751E4FC8DD00D7DC82 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0B05E7771E4FC8DD00D7DC82 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0B4300001E5776E1004807F6 /* Okomito-BoldItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Okomito-BoldItalic.otf"; sourceTree = "<group>"; };
+		0B4300011E5776E1004807F6 /* Okomito-Italic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Okomito-Italic.otf"; sourceTree = "<group>"; };
+		0B4300021E5776E1004807F6 /* Okomito-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Okomito-Light.otf"; sourceTree = "<group>"; };
+		0B4300031E5776E1004807F6 /* Okomito-LightItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Okomito-LightItalic.otf"; sourceTree = "<group>"; };
+		0B4300041E5776E1004807F6 /* Okomito-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Okomito-Medium.otf"; sourceTree = "<group>"; };
+		0B4300051E5776E1004807F6 /* Okomito-MediumItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Okomito-MediumItalic.otf"; sourceTree = "<group>"; };
+		0B4300061E5776E1004807F6 /* Okomito-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Okomito-Regular.otf"; sourceTree = "<group>"; };
+		0B4300101E5776E8004807F6 /* EULA.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = EULA.txt; sourceTree = "<group>"; };
+		0B43FFFE1E5776E1004807F6 /* Okomito-Black.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Okomito-Black.otf"; sourceTree = "<group>"; };
+		0B43FFFF1E5776E1004807F6 /* Okomito-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Okomito-Bold.otf"; sourceTree = "<group>"; };
 		0BC2020E1E51F7DF00B6D5C1 /* Caesar.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Caesar.entitlements; sourceTree = "<group>"; };
 		0BC202101E51FA2300B6D5C1 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		0BC202121E52183200B6D5C1 /* Algorithms.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Algorithms.swift; sourceTree = "<group>"; };
+		0BC202141E5246F300B6D5C1 /* HistoryController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryController.swift; sourceTree = "<group>"; };
+		0BC202161E52529C00B6D5C1 /* Cipher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cipher.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -44,6 +68,16 @@
 		0B05E75C1E4FC8DD00D7DC82 = {
 			isa = PBXGroup;
 			children = (
+				0B4300101E5776E8004807F6 /* EULA.txt */,
+				0B43FFFE1E5776E1004807F6 /* Okomito-Black.otf */,
+				0B43FFFF1E5776E1004807F6 /* Okomito-Bold.otf */,
+				0B4300001E5776E1004807F6 /* Okomito-BoldItalic.otf */,
+				0B4300011E5776E1004807F6 /* Okomito-Italic.otf */,
+				0B4300021E5776E1004807F6 /* Okomito-Light.otf */,
+				0B4300031E5776E1004807F6 /* Okomito-LightItalic.otf */,
+				0B4300041E5776E1004807F6 /* Okomito-Medium.otf */,
+				0B4300051E5776E1004807F6 /* Okomito-MediumItalic.otf */,
+				0B4300061E5776E1004807F6 /* Okomito-Regular.otf */,
 				0B05E7671E4FC8DD00D7DC82 /* Caesar */,
 				0B05E7661E4FC8DD00D7DC82 /* Products */,
 				0BC2020F1E51FA2300B6D5C1 /* Frameworks */,
@@ -64,7 +98,9 @@
 				0BC2020E1E51F7DF00B6D5C1 /* Caesar.entitlements */,
 				0B05E7681E4FC8DD00D7DC82 /* AppDelegate.swift */,
 				0B05E76A1E4FC8DD00D7DC82 /* MainController.swift */,
+				0BC202141E5246F300B6D5C1 /* HistoryController.swift */,
 				0BC202121E52183200B6D5C1 /* Algorithms.swift */,
+				0BC202161E52529C00B6D5C1 /* Cipher.swift */,
 				0B05E7721E4FC8DD00D7DC82 /* Assets.xcassets */,
 				0B05E7741E4FC8DD00D7DC82 /* LaunchScreen.storyboard */,
 				0B05E7771E4FC8DD00D7DC82 /* Info.plist */,
@@ -151,6 +187,16 @@
 			files = (
 				0B05E7761E4FC8DD00D7DC82 /* LaunchScreen.storyboard in Resources */,
 				0B05E7731E4FC8DD00D7DC82 /* Assets.xcassets in Resources */,
+				0B4300071E5776E1004807F6 /* Okomito-Black.otf in Resources */,
+				0B4300081E5776E1004807F6 /* Okomito-Bold.otf in Resources */,
+				0B4300091E5776E1004807F6 /* Okomito-BoldItalic.otf in Resources */,
+				0B43000A1E5776E1004807F6 /* Okomito-Italic.otf in Resources */,
+				0B43000B1E5776E1004807F6 /* Okomito-Light.otf in Resources */,
+				0B43000C1E5776E1004807F6 /* Okomito-LightItalic.otf in Resources */,
+				0B4300111E5776E8004807F6 /* EULA.txt in Resources */,
+				0B43000D1E5776E1004807F6 /* Okomito-Medium.otf in Resources */,
+				0B43000E1E5776E1004807F6 /* Okomito-MediumItalic.otf in Resources */,
+				0B43000F1E5776E1004807F6 /* Okomito-Regular.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -161,6 +207,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0BC202171E52529C00B6D5C1 /* Cipher.swift in Sources */,
+				0BC202151E5246F300B6D5C1 /* HistoryController.swift in Sources */,
 				0B05E76B1E4FC8DD00D7DC82 /* MainController.swift in Sources */,
 				0BC202131E52183200B6D5C1 /* Algorithms.swift in Sources */,
 				0B05E7711E4FC8DD00D7DC82 /* Caesar.xcdatamodeld in Sources */,

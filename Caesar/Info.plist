@@ -39,5 +39,17 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>UIAppFonts</key>
+	<array>
+		<string>Okomito-Black.otf</string>
+		<string>Okomito-Bold.otf</string>
+		<string>Okomito-BoldItalic.otf</string>
+		<string>Okomito-Italic.otf</string>
+		<string>Okomito-Light.otf</string>
+		<string>Okomito-LightItalic.otf</string>
+		<string>Okomito-Medium.otf</string>
+		<string>Okomito-MediumItalic.otf</string>
+		<string>Okomito-Regular.otf</string>
+	</array>
 </dict>
 </plist>
