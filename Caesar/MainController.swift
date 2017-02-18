@@ -96,11 +96,12 @@ class MainController: UIViewController {
     let tv = UITextView()
     tv.textColor = UIColor.new(red: 166, green: 166, blue: 166)
     tv.falseAutoresizingTranslation()
-    tv.contentInset = UIEdgeInsets(top: 44, left: 44, bottom: 44, right: 44)
     tv.delegate = self
     tv.returnKeyType = .go
     tv.text = "Type in your message..."
     tv.font = UIFont(name: "Okomito-Regular", size: 21.5)
+    tv.isScrollEnabled = false
+    tv.textContainerInset = UIEdgeInsets(top: 44, left: 44, bottom: 44, right: 44)
     return tv
   }()
   
@@ -176,6 +177,13 @@ extension MainController: UITextViewDelegate {
   func textViewDidBeginEditing(_ textView: UITextView) {
     textView.becomeFirstResponder()
   }
+  
+  func textViewDidEndEditing(_ textView: UITextView) {
+    if textView.text == "" {
+      textView.text = "Type in your message..."
+    }
+  }
+  
   func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
     if text == "\n" {
       // NOTE: Check if key is available
@@ -196,7 +204,7 @@ extension MainController: UITextViewDelegate {
         createCipherRec(cipher: cipher)
         return true
       }
-      let alert = createAlert(title: "No Shift Offset Found", message: "Please set it before applying cipher", style: .alert, actions: [
+      createAlert(title: "No Shift Offset", message: "Please set it before applying cipher", style: .alert, actions: [
         UIAlertAction(title: "I understand", style: .default) { _ in
         }
       ])
