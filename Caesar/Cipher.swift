@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Cipher {
+class Cipher {
   var offset: Int
   var appliedMethod: Int
   var content: String
@@ -20,4 +20,9 @@ struct Cipher {
     self.content = content
     self.date = date
   }
+  
+  convenience init(offset: Int, appliedMethod: Int, content: String) {
+    self.init(offset: offset, appliedMethod: appliedMethod, content: content, date: Date())
+  }
+  
 }

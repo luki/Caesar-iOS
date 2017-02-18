@@ -187,15 +187,14 @@ extension MainController: UITextViewDelegate {
       if !(shiftButton.text?.isEmpty)! {
         let offset = Int(shiftButton.text!)
         let content = textView.text
-        let date = Date()
         
         var cipher: Cipher!
         
         switch methodSelector.selectedSegmentIndex {
           case 0:
-            cipher = Cipher(offset: offset!, appliedMethod: methodSelector.selectedSegmentIndex, content: encipher(offset: offset!, message: content!), date: date)
+            cipher = Cipher(offset: offset!, appliedMethod: methodSelector.selectedSegmentIndex, content: encipher(offset: offset!, message: content!))
           case 1:
-            cipher = Cipher(offset: offset!, appliedMethod: methodSelector.selectedSegmentIndex, content: decipher(offset: offset!, message: content!), date: date)
+            cipher = Cipher(offset: offset!, appliedMethod: methodSelector.selectedSegmentIndex, content: decipher(offset: offset!, message: content!))
           default:
             print("Something weird has been selected")
         }
