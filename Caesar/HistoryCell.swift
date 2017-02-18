@@ -8,11 +8,14 @@
 
 import UIKit
 
-extension UICollectionViewCell {
+extension UICollectionReusableView {
   func addSubviews(views: UIView...) {
     for view in views {
       addSubview(view)
     }
+  }
+  func activateLayoutConstraints(_ constraints: NSLayoutConstraint...) {
+    NSLayoutConstraint.activate(constraints)
   }
 }
 
@@ -30,10 +33,10 @@ class HistoryCell: UICollectionViewCell {
     super.init(frame: frame)
     addSubviews(views: contentLabel)
     
-    NSLayoutConstraint.activate([
+    activateLayoutConstraints(
       contentLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
       contentLabel.trailingAnchor.constraint(equalTo: trailingAnchor)
-    ])
+    )
     
   }
   

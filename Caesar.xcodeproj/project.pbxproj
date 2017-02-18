@@ -27,6 +27,7 @@
 		0BC202131E52183200B6D5C1 /* Algorithms.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BC202121E52183200B6D5C1 /* Algorithms.swift */; };
 		0BC202151E5246F300B6D5C1 /* HistoryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BC202141E5246F300B6D5C1 /* HistoryController.swift */; };
 		0BC202171E52529C00B6D5C1 /* Cipher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BC202161E52529C00B6D5C1 /* Cipher.swift */; };
+		0BE26F1C1E58771B0045038F /* HistoryCellHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE26F1B1E58771B0045038F /* HistoryCellHeader.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -53,6 +54,7 @@
 		0BC202121E52183200B6D5C1 /* Algorithms.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Algorithms.swift; sourceTree = "<group>"; };
 		0BC202141E5246F300B6D5C1 /* HistoryController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryController.swift; sourceTree = "<group>"; };
 		0BC202161E52529C00B6D5C1 /* Cipher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cipher.swift; sourceTree = "<group>"; };
+		0BE26F1B1E58771B0045038F /* HistoryCellHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryCellHeader.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,16 +72,7 @@
 		0B05E75C1E4FC8DD00D7DC82 = {
 			isa = PBXGroup;
 			children = (
-				0B4300101E5776E8004807F6 /* EULA.txt */,
-				0B43FFFE1E5776E1004807F6 /* Okomito-Black.otf */,
-				0B43FFFF1E5776E1004807F6 /* Okomito-Bold.otf */,
-				0B4300001E5776E1004807F6 /* Okomito-BoldItalic.otf */,
-				0B4300011E5776E1004807F6 /* Okomito-Italic.otf */,
-				0B4300021E5776E1004807F6 /* Okomito-Light.otf */,
-				0B4300031E5776E1004807F6 /* Okomito-LightItalic.otf */,
-				0B4300041E5776E1004807F6 /* Okomito-Medium.otf */,
-				0B4300051E5776E1004807F6 /* Okomito-MediumItalic.otf */,
-				0B4300061E5776E1004807F6 /* Okomito-Regular.otf */,
+				0BE26F181E5876F20045038F /* Fonts */,
 				0B05E7671E4FC8DD00D7DC82 /* Caesar */,
 				0B05E7661E4FC8DD00D7DC82 /* Products */,
 				0BC2020F1E51FA2300B6D5C1 /* Frameworks */,
@@ -99,11 +92,9 @@
 			children = (
 				0BC2020E1E51F7DF00B6D5C1 /* Caesar.entitlements */,
 				0B05E7681E4FC8DD00D7DC82 /* AppDelegate.swift */,
-				0B05E76A1E4FC8DD00D7DC82 /* MainController.swift */,
-				0BC202141E5246F300B6D5C1 /* HistoryController.swift */,
-				0B4300121E578E21004807F6 /* HistoryCell.swift */,
+				0BE26F171E5876E90045038F /* Controllers */,
 				0BC202121E52183200B6D5C1 /* Algorithms.swift */,
-				0BC202161E52529C00B6D5C1 /* Cipher.swift */,
+				0BE26F191E5877040045038F /* Models */,
 				0B05E7721E4FC8DD00D7DC82 /* Assets.xcassets */,
 				0B05E7741E4FC8DD00D7DC82 /* LaunchScreen.storyboard */,
 				0B05E7771E4FC8DD00D7DC82 /* Info.plist */,
@@ -118,6 +109,50 @@
 				0BC202101E51FA2300B6D5C1 /* CloudKit.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		0BE26F171E5876E90045038F /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				0B05E76A1E4FC8DD00D7DC82 /* MainController.swift */,
+				0BC202141E5246F300B6D5C1 /* HistoryController.swift */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		0BE26F181E5876F20045038F /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				0B4300101E5776E8004807F6 /* EULA.txt */,
+				0B43FFFE1E5776E1004807F6 /* Okomito-Black.otf */,
+				0B43FFFF1E5776E1004807F6 /* Okomito-Bold.otf */,
+				0B4300001E5776E1004807F6 /* Okomito-BoldItalic.otf */,
+				0B4300011E5776E1004807F6 /* Okomito-Italic.otf */,
+				0B4300021E5776E1004807F6 /* Okomito-Light.otf */,
+				0B4300031E5776E1004807F6 /* Okomito-LightItalic.otf */,
+				0B4300041E5776E1004807F6 /* Okomito-Medium.otf */,
+				0B4300051E5776E1004807F6 /* Okomito-MediumItalic.otf */,
+				0B4300061E5776E1004807F6 /* Okomito-Regular.otf */,
+			);
+			name = Fonts;
+			sourceTree = "<group>";
+		};
+		0BE26F191E5877040045038F /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				0BE26F1A1E58770D0045038F /* Cells */,
+				0BC202161E52529C00B6D5C1 /* Cipher.swift */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		0BE26F1A1E58770D0045038F /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				0B4300121E578E21004807F6 /* HistoryCell.swift */,
+				0BE26F1B1E58771B0045038F /* HistoryCellHeader.swift */,
+			);
+			name = Cells;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -215,6 +250,7 @@
 				0BC202151E5246F300B6D5C1 /* HistoryController.swift in Sources */,
 				0B05E76B1E4FC8DD00D7DC82 /* MainController.swift in Sources */,
 				0BC202131E52183200B6D5C1 /* Algorithms.swift in Sources */,
+				0BE26F1C1E58771B0045038F /* HistoryCellHeader.swift in Sources */,
 				0B05E7711E4FC8DD00D7DC82 /* Caesar.xcdatamodeld in Sources */,
 				0B05E7691E4FC8DD00D7DC82 /* AppDelegate.swift in Sources */,
 			);

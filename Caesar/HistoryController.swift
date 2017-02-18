@@ -54,10 +54,13 @@ class HistoryController: UIViewController {
   lazy var historyCollection: UICollectionView = {
     let layout = UICollectionViewFlowLayout()
     layout.itemSize = CGSize(width: UIScreen.main.bounds.width - 88, height: 21.5)
-    layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 70, right: 0)
+    layout.sectionInset = UIEdgeInsets(top: 20, left: 0, bottom: 70, right: 0)
+    layout.headerReferenceSize = CGSize(width: UIScreen.main.bounds.width - 88, height: 21.5)
+    
     let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
     cv.falseAutoresizingTranslation()
     cv.register(HistoryCell.self, forCellWithReuseIdentifier: HistoryCell.reusableIdentifier)
+    cv.register(HistoryCellHeader.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: HistoryCellHeader.reusableIdentifier)
     cv.dataSource = self
     cv.backgroundColor = .clear
     return cv
@@ -67,7 +70,7 @@ class HistoryController: UIViewController {
     super.viewDidLoad()
     view.backgroundColor = UIColor.new(red: 38, green: 50, blue: 56)
     addSubviewsTo(view, views: button, historyCollection)
-    addConstraints([
+    addConstraints(
       button.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -44),
       button.topAnchor.constraint(equalTo: view.topAnchor, constant: 44),
       
@@ -75,7 +78,7 @@ class HistoryController: UIViewController {
       historyCollection.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -44),
       historyCollection.topAnchor.constraint(equalTo: button.bottomAnchor, constant: 44),
       historyCollection.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-    ])
+    )
   }
   
   // MARK: Target actions
@@ -102,4 +105,14 @@ extension HistoryController: UICollectionViewDataSource {
   func numberOfSections(in collectionView: UICollectionView) -> Int {
     return 2
   }
+  
+  func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+    let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader, withReuseIdentifier: HistoryCellHeader.reusableIdentifier, for: indexPath) as! HistoryCellHeader
+    
+    let headerNames = ["Enciphered", "Deciphered"]
+    
+    headerView.headerLabel.text = headerNames.get(atIndex: indexPath.section)
+    return headerView
+  }
+    
 }
