@@ -10,13 +10,8 @@ import UIKit
 import CloudKit
 
 extension UIViewController {
-  public func addSubviewsTo(_ view: UIView, views: [UIView]) {
-    for currentView in views {
-      view.addSubview(currentView)
-    }
-  }
-  public func addSubviews(_ views: [UIView]) {
-    addSubviewsTo(view, views: views)
+  public func addSubviewsTo(_ view: UIView, views: UIView...) {
+    views.forEach { view.addSubview($0) }
   }
   public func addConstraints(_ constraints: [NSLayoutConstraint]) {
     NSLayoutConstraint.activate(constraints)
@@ -128,8 +123,8 @@ class MainController: UIViewController {
 
   override func viewDidLoad() {
     super.viewDidLoad()
-    addSubviews([selectionArea, textView])
-    addSubviewsTo(selectionArea, views: [button, shiftButton, shiftLabel, methodSelector, selectorLabel])
+    addSubviewsTo(view, views: selectionArea, textView)
+    addSubviewsTo(selectionArea, views: button, shiftButton, shiftLabel, methodSelector, selectorLabel)
     addConstraints([
       selectionArea.leadingAnchor.constraint(equalTo: view.leadingAnchor),
       selectionArea.topAnchor.constraint(equalTo: view.topAnchor),

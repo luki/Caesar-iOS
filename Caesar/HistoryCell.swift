@@ -8,10 +8,33 @@
 
 import UIKit
 
+extension UICollectionViewCell {
+  func addSubviews(views: UIView...) {
+    for view in views {
+      addSubview(view)
+    }
+  }
+}
+
 class HistoryCell: UICollectionViewCell {
+  
+  let contentLabel: UILabel = {
+    let label = UILabel()
+    label.falseAutoresizingTranslation()
+    label.font = UIFont(name: "Okomito-Regular", size: 20.5)
+    label.textColor = .white
+    return label
+  }()
   
   override init(frame: CGRect) {
     super.init(frame: frame)
+    addSubviews(views: contentLabel)
+    
+    NSLayoutConstraint.activate([
+      contentLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
+      contentLabel.trailingAnchor.constraint(equalTo: trailingAnchor)
+    ])
+    
   }
   
   required init?(coder aDecoder: NSCoder) {

@@ -15,10 +15,18 @@ extension UIView {
   }
 }
 
+extension Array {
+  public func get(atIndex: Int) -> Element {
+    return self[atIndex]
+  }
+}
+
 class HistoryController: UIViewController {
 
   var cipherHistory: [Cipher] = [
-    Cipher(offset: 5, appliedMethod: 0, content: "Hi", date: Date())
+    Cipher(offset: 7, appliedMethod: 0, content: "oCz GvNO CDNOJMT xGvNN"),
+    Cipher(offset: 7, appliedMethod: 0, content: "oCz GvNO CDNOJMT xGvNN"),
+    Cipher(offset: 9, appliedMethod: 1, content: "The last history class was so"),
   ]
   
   let publicDb = CKContainer(identifier: "iCloud.guru.luke.Caesar").publicCloudDatabase
@@ -45,6 +53,8 @@ class HistoryController: UIViewController {
   
   lazy var historyCollection: UICollectionView = {
     let layout = UICollectionViewFlowLayout()
+    layout.itemSize = CGSize(width: UIScreen.main.bounds.width - 88, height: 21.5)
+    layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 70, right: 0)
     let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
     cv.falseAutoresizingTranslation()
     cv.register(HistoryCell.self, forCellWithReuseIdentifier: HistoryCell.reusableIdentifier)
@@ -56,7 +66,7 @@ class HistoryController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     view.backgroundColor = UIColor.new(red: 38, green: 50, blue: 56)
-    addSubviews([button, historyCollection])
+    addSubviewsTo(view, views: button, historyCollection)
     addConstraints([
       button.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -44),
       button.topAnchor.constraint(equalTo: view.topAnchor, constant: 44),
@@ -79,6 +89,10 @@ class HistoryController: UIViewController {
 extension HistoryController: UICollectionViewDataSource {
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
     let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HistoryCell.reusableIdentifier, for: indexPath) as! HistoryCell
+    cell.contentLabel.text = cipherHistory
+                                .filter {$0.appliedMethod == indexPath.section}
+                                .get(atIndex: indexPath.row)
+                                .content
     return cell
   }
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
