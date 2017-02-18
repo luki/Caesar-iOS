@@ -13,7 +13,7 @@ extension UIViewController {
   public func addSubviewsTo(_ view: UIView, views: UIView...) {
     views.forEach { view.addSubview($0) }
   }
-  public func addConstraints(_ constraints: [NSLayoutConstraint]) {
+  public func addConstraints(_ constraints: NSLayoutConstraint...) {
     NSLayoutConstraint.activate(constraints)
   }
 }
@@ -125,7 +125,7 @@ class MainController: UIViewController {
     super.viewDidLoad()
     addSubviewsTo(view, views: selectionArea, textView)
     addSubviewsTo(selectionArea, views: button, shiftButton, shiftLabel, methodSelector, selectorLabel)
-    addConstraints([
+    addConstraints(
       selectionArea.leadingAnchor.constraint(equalTo: view.leadingAnchor),
       selectionArea.topAnchor.constraint(equalTo: view.topAnchor),
       selectionArea.trailingAnchor.constraint(equalTo: view.trailingAnchor),
@@ -152,7 +152,7 @@ class MainController: UIViewController {
       
       selectorLabel.bottomAnchor.constraint(equalTo: methodSelector.topAnchor, constant: -8),
       selectorLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 44)
-    ])
+    )
   }
   
   // MARK: Target actions
