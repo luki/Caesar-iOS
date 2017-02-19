@@ -77,9 +77,6 @@ class MainController: UIViewController {
     label.font = UIFont(name: "Okomito-Medium", size: 11.5)
     label.textColor = UIColor.new(red: 69, green: 90, blue: 100)
     label.falseAutoresizingTranslation()
-    let gesture = UITapGestureRecognizer(target: self, action: #selector(shiftAction))
-    gesture.delegate = self
-    label.addGestureRecognizer(gesture)
     return label
   }()
   
@@ -222,6 +219,4 @@ extension MainController: UITextViewDelegate {
   
 }
 
-extension MainController: UIGestureRecognizerDelegate {
-  
-}
+extension MainController: UIViewControllerTransitioningDelegate { }

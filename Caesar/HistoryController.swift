@@ -31,17 +31,6 @@ class HistoryController: UIViewController {
   
   let publicDb = CKContainer(identifier: "iCloud.guru.luke.Caesar").publicCloudDatabase
   
-//  func retrieveData() -> CKRecord {
-//    let query = CKQuery(recordType: "Cipher", predicate: NSPredicate(format: "TRUEPREDICATE"))
-//    
-//    query.sortDescriptors = [NSSortDescriptor(key: "date", ascending: true)]
-//    
-//    publicDb.perform(query, inZoneWith: nil) { record, error in
-//      
-//    }
-//    
-//  }
-  
   let button: UIButton = {
     let button = UIButton(frame: CGRect(x: 0, y: 0, width: 88, height: 88))
     button.contentMode = .scaleAspectFit
