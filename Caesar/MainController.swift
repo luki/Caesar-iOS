@@ -46,13 +46,21 @@ class MainController: UIViewController {
     record["date"] = cipher.date as CKRecordValue?
     record["offset"] = cipher.offset as CKRecordValue?
     
+    var errorMsg: String? = nil
+    
     publicDb.save(record) { record, error in
-      guard let record = record else {
-        print("Error saving record: ", error)
-        return
+      if record != nil {
+        print("Success")
+      } else {
+        errorMsg = error!.localizedDescription
       }
-      print("Successful saved record: ", record)
     }
+    
+    if errorMsg != nil {
+      let alert = UIAlertController(title: errorMsg, message: nil, preferredStyle: .alert)
+      self.present(alert, animated: true, completion: nil)
+    }
+    
   }
   
   let selectionArea: UIView = {
