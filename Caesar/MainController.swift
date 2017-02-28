@@ -46,8 +46,6 @@ class MainController: UIViewController {
     record["date"] = cipher.date as CKRecordValue?
     record["offset"] = cipher.offset as CKRecordValue?
     
-    var errorMsg: String? = nil
-    
     publicDb.save(record) { record, error in
       if record != nil {
         DispatchQueue.main.async {
@@ -87,13 +85,13 @@ class MainController: UIViewController {
           ])
         }
       } else {
-        errorMsg = error!.localizedDescription
+        print("hi")
+        DispatchQueue.main.async {
+          self.createAlert(title: "Possibly no internet connection!", message: error!.localizedDescription, style: .alert, actions: [
+            UIAlertAction(title: "Understood", style: .default) { _ in}
+          ])
+        }
       }
-    }
-    
-    if errorMsg != nil {
-      let alert = UIAlertController(title: errorMsg, message: nil, preferredStyle: .alert)
-      self.present(alert, animated: true, completion: nil)
     }
     
   }
@@ -123,16 +121,14 @@ class MainController: UIViewController {
     return label
   }()
   
-  let shiftButton: UIButton = {
-    let label = UIButton()
-    label.setTitle("1", for: .normal)
-    label.titleLabel!.font = UIFont(name: "Okomito-Light", size: 23)!
-    label.titleLabel!.textColor = .white
-    label.falseAutoresizingTranslation()
-    label.contentHorizontalAlignment = UIControlContentHorizontalAlignment.left
-    label.addTarget(self, action: #selector(offsetTapped), for: .touchUpInside)
-    label.isUserInteractionEnabled = true
-    return label
+  let shiftButton: UITextField = {
+    let field = UITextField(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width - 88, height: 23))
+    field.backgroundColor = .clear
+    field.textColor = .white
+    field.placeholder = "e.g. 21"
+    field.font = UIFont(name: "Okomito-Light", size: 23)
+    field.falseAutoresizingTranslation()
+    return field
   }()
   
   lazy var textView: UITextView = {
@@ -240,25 +236,35 @@ extension MainController: UITextViewDelegate {
   func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
     if text == "\n" {
       // NOTE: Check if key is available
-      if !(shiftButton.titleLabel!.text?.isEmpty)! {
-        let offset = Int(shiftButton.titleLabel!.text!)
-        let content = textView.text
+      if !(shiftButton.text?.isEmpty)! {
+        if let offset = Int(shiftButton.text!) {
+          let content = textView.text
         
-        var cipher: Cipher!
+          var cipher: Cipher!
         
-        switch methodSelector.selectedSegmentIndex {
-          case 0:
-            cipher = Cipher(offset: offset!, appliedMethod: methodSelector.selectedSegmentIndex, content: encipher(offset: offset!, message: content!))
-          case 1:
-            cipher = Cipher(offset: offset!, appliedMethod: methodSelector.selectedSegmentIndex, content: decipher(offset: offset!, message: content!))
-          default:
-            print("Something weird has been selected")
+          switch methodSelector.selectedSegmentIndex {
+            case 0:
+              cipher = Cipher(offset: offset, appliedMethod: methodSelector.selectedSegmentIndex, content: encipher(offset: offset, message: content!))
+            case 1:
+              cipher = Cipher(offset: offset, appliedMethod: methodSelector.selectedSegmentIndex, content: decipher(offset: offset, message: content!))
+            default:
+              print("Something weird has been selected")
+          }
+          createCipherRec(cipher: cipher)
+          return true
+        } else {
+          createAlert(title: "Offset is not a number", message: nil, style: .alert, actions: [
+            UIAlertAction(title: "Got it", style: .default) { action in
+                self.shiftButton.text?.characters.removeAll()
+                self.shiftButton.becomeFirstResponder()
+            }
+          ])
         }
-        createCipherRec(cipher: cipher)
-        return true
       }
       createAlert(title: "No Shift Offset", message: "Please set it before applying cipher", style: .alert, actions: [
         UIAlertAction(title: "I understand", style: .default) { _ in
+          self.shiftButton.becomeFirstResponder()
+          self.dismiss(animated: true, completion: nil)
         }
       ])
     }
