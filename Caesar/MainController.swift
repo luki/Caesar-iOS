@@ -123,12 +123,15 @@ class MainController: UIViewController {
     return label
   }()
   
-  let shiftButton: UILabel = {
-    let label = UILabel()
-    label.font = UIFont(name: "Okomito-Light", size: 23)
-    label.textColor = .white
-    label.text = "21"
+  let shiftButton: UIButton = {
+    let label = UIButton()
+    label.setTitle("1", for: .normal)
+    label.titleLabel!.font = UIFont(name: "Okomito-Light", size: 23)!
+    label.titleLabel!.textColor = .white
     label.falseAutoresizingTranslation()
+    label.contentHorizontalAlignment = UIControlContentHorizontalAlignment.left
+    label.addTarget(self, action: #selector(offsetTapped), for: .touchUpInside)
+    label.isUserInteractionEnabled = true
     return label
   }()
   
@@ -207,6 +210,10 @@ class MainController: UIViewController {
     print("Test")
   }
   
+  func offsetTapped(_ sender: UIButton) {
+    print("Tap!")
+  }
+  
   // MARK: Helper Methods
   
   func copyToPasteBoard(_ input: String) {
@@ -233,8 +240,8 @@ extension MainController: UITextViewDelegate {
   func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
     if text == "\n" {
       // NOTE: Check if key is available
-      if !(shiftButton.text?.isEmpty)! {
-        let offset = Int(shiftButton.text!)
+      if !(shiftButton.titleLabel!.text?.isEmpty)! {
+        let offset = Int(shiftButton.titleLabel!.text!)
         let content = textView.text
         
         var cipher: Cipher!

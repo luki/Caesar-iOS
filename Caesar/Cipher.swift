@@ -14,6 +14,7 @@ class Cipher {
   var appliedMethod: Int
   var content: String
   var date: Date
+  var id: CKRecordID? = nil
   
   init(offset: Int, appliedMethod: Int, content: String, date: Date) {
     self.offset = offset
@@ -31,6 +32,7 @@ class Cipher {
     appliedMethod = (record["appliedMethod"] as? Int)!
     content = (record["content"] as? String)!
     date = (record["date"] as? Date)!
+    id = record.recordID
   }
   
 }

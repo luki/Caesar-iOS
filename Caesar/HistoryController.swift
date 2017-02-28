@@ -64,10 +64,17 @@ class HistoryController: UIViewController {
     return cv
   }()
   
+  let loadingIndicator: UIActivityIndicatorView = {
+    let aiv = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+    aiv.falseAutoresizingTranslation()
+//    aiv.hidesWhenStopped = true
+    return aiv
+  }()
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     view.backgroundColor = UIColor.new(red: 38, green: 50, blue: 56)
-    addSubviewsTo(view, views: closeButton, historyCollection, clearHistoryButton)
+    addSubviewsTo(view, views: closeButton, historyCollection, clearHistoryButton, loadingIndicator)
     addConstraints(
       closeButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -44),
       closeButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 44),
@@ -78,10 +85,12 @@ class HistoryController: UIViewController {
       historyCollection.bottomAnchor.constraint(equalTo: view.bottomAnchor),
       
       clearHistoryButton.trailingAnchor.constraint(equalTo: closeButton.leadingAnchor, constant: -8),
-      clearHistoryButton.centerYAnchor.constraint(equalTo: closeButton.centerYAnchor)
+      clearHistoryButton.centerYAnchor.constraint(equalTo: closeButton.centerYAnchor),
       
+      loadingIndicator.trailingAnchor.constraint(equalTo: clearHistoryButton.leadingAnchor, constant: -8),
+      loadingIndicator.centerYAnchor.constraint(equalTo: closeButton.centerYAnchor)
     )
-    fetchData(database: publicDb)
+    fetchData(database: publicDb, loadingIndicator: loadingIndicator)
   }
   
   // MARK: Target actions
@@ -96,7 +105,8 @@ class HistoryController: UIViewController {
   
   // MARK: Helper Methods
   
-  func fetchData(database: CKDatabase) {
+  func fetchData(database: CKDatabase, loadingIndicator: UIActivityIndicatorView) {
+    loadingIndicator.startAnimating()
     let query = CKQuery(recordType: "Cipher", predicate: NSPredicate(value: true))
     database.perform(query, inZoneWith: nil) { results, error in
       if error != nil {
@@ -105,26 +115,18 @@ class HistoryController: UIViewController {
         results?.forEach { self.cipherHistory.append(Cipher(record: $0)) }
         self.historyCollection.reloadData()
       }
+      loadingIndicator.stopAnimating()
     }
   }
   
   func clearData(database: CKDatabase) {
-    let query = CKQuery(recordType: "Cipher", predicate: NSPredicate(value: true))
-    database.perform(query, inZoneWith: nil) { results, error in
-      if error != nil {
-        print("Error before deleting: ", error!.localizedDescription)
-      } else {
-        for result in results! {
-          database.delete(withRecordID: result.recordID) { recordId, error in
-            if error != nil {
-              print("Error when deleting: ", error!.localizedDescription)
-            }
-          }
-        }
-      }
+    if cipherHistory.isEmpty {
+      fetchData(database: database, loadingIndicator: loadingIndicator)
+    }
+    cipherHistory.forEach {
+      database.delete(withRecordID: $0.id!) { _, _ in }
     }
   }
-  
 }
 
 extension HistoryController: UICollectionViewDataSource {
