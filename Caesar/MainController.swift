@@ -55,33 +55,13 @@ class MainController: UIViewController {
                   .characters
                   .removeAll()
           
-          let recordModel = Cipher(record: record!)
-          self.createAlert(title: "Hi", message: nil, style: .actionSheet, actions: [
-            UIAlertAction(title: "Dismiss", style: .default) { _ in
-              self.dismiss(animated: true, completion: nil)
-            },
-            UIAlertAction(title: "Delete", style: .destructive) { _ in
-              self.publicDb.delete(withRecordID: (record?.recordID)!) { record, error in
-                
-              }
-            },
-            UIAlertAction(title: "Copy Input", style: .default) { _ in
-            },
-            UIAlertAction(title: "Copy Result", style: .default) { _ in
-              var stringToCopy = ""
-              switch recordModel.appliedMethod {
-                case 0:
-                  stringToCopy = encipher(offset: recordModel.offset, message: recordModel.content)
-                case 1:
-                  stringToCopy = decipher(offset: recordModel.offset, message: recordModel.content)
-                default:
-                  print("An unknown method appeared!")
-              }
-              self.copyToPasteBoard(stringToCopy)
-            },
-            UIAlertAction(title: "Copy Offset", style: .default) { _ in
-              self.copyToPasteBoard(String(recordModel.offset))
-            }
+         self.createAlert(title: "Successfully uploaded", message: nil, style: .alert, actions: [
+          UIAlertAction(title: "Got it", style: .default) { _ in
+            self.dismiss(animated: true, completion: nil)
+          },
+          UIAlertAction(title: "Delete", style: .destructive) { _ in
+            self.publicDb.delete(withRecordID: (record?.recordID)!) { _, _ in }
+          }
           ])
         }
       } else {
@@ -250,7 +230,17 @@ extension MainController: UITextViewDelegate {
             default:
               print("Something weird has been selected")
           }
-          createCipherRec(cipher: cipher)
+          
+          copyToPasteBoard(cipher.content)
+          
+          createAlert(title: "Cipher has been created & the result saved to your clipboard", message: "Do you want to save it to your private online storage?", style: .actionSheet, actions: [
+            UIAlertAction(title: "Upload", style: .default) { _ in
+              self.createCipherRec(cipher: cipher)
+            },
+            UIAlertAction(title: "Dismiss", style: .default) { _ in
+              
+            }
+          ])
           return true
         } else {
           createAlert(title: "Offset is not a number", message: nil, style: .alert, actions: [

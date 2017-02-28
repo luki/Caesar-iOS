@@ -43,7 +43,7 @@ class HistoryController: UIViewController {
   let clearHistoryButton: UIButton = {
     let button = UIButton(frame: CGRect(x: 0, y: 0, width: 88, height: 88))
     button.contentMode = .scaleAspectFit
-    button.setImage(UIImage(named: "up"), for: UIControlState.normal)
+    button.setImage(UIImage(named: "trash"), for: UIControlState.normal)
     button.falseAutoresizingTranslation()
     button.addTarget(self, action: #selector(clearHistory), for: .touchUpInside)
     return button
@@ -84,10 +84,10 @@ class HistoryController: UIViewController {
       historyCollection.topAnchor.constraint(equalTo: closeButton.bottomAnchor, constant: 44),
       historyCollection.bottomAnchor.constraint(equalTo: view.bottomAnchor),
       
-      clearHistoryButton.trailingAnchor.constraint(equalTo: closeButton.leadingAnchor, constant: -8),
+      clearHistoryButton.trailingAnchor.constraint(equalTo: closeButton.leadingAnchor, constant: -16),
       clearHistoryButton.centerYAnchor.constraint(equalTo: closeButton.centerYAnchor),
       
-      loadingIndicator.trailingAnchor.constraint(equalTo: clearHistoryButton.leadingAnchor, constant: -8),
+      loadingIndicator.trailingAnchor.constraint(equalTo: clearHistoryButton.leadingAnchor, constant: -16),
       loadingIndicator.centerYAnchor.constraint(equalTo: closeButton.centerYAnchor)
     )
     fetchData(database: publicDb, loadingIndicator: loadingIndicator)
@@ -100,7 +100,7 @@ class HistoryController: UIViewController {
   }
   
   func clearHistory(_ sender: UIButton) {
-    
+    clearData(database: publicDb)
   }
   
   // MARK: Helper Methods
@@ -120,13 +120,30 @@ class HistoryController: UIViewController {
   }
   
   func clearData(database: CKDatabase) {
-    if cipherHistory.isEmpty {
-      fetchData(database: database, loadingIndicator: loadingIndicator)
-    }
-    cipherHistory.forEach {
-      database.delete(withRecordID: $0.id!) { _, _ in }
-    }
+    self.createAlert(title: "Are you sure you want to empty your trash?", message: nil, style: .alert, actions: [
+      UIAlertAction(title: "Yes", style: .destructive) { _ in
+        if self.cipherHistory.isEmpty {
+          self.fetchData(database: database, loadingIndicator: self.loadingIndicator)
+        }
+        self.cipherHistory.forEach {
+          database.delete(withRecordID: $0.id!) { _, _ in }
+        }
+      },
+      UIAlertAction(title: "No", style: .default) { _ in
+        self.dismiss(animated: true, completion: nil)
+      }
+    ])
   }
+  
+  func createAlert(title: String?, message: String?, style: UIAlertControllerStyle, actions: [UIAlertAction]) {
+    let alert = UIAlertController(title: title, message: message, preferredStyle: style)
+    for action in actions {
+      alert.addAction(action)
+    }
+    present(alert, animated: true, completion: nil)
+  }
+
+  
 }
 
 extension HistoryController: UICollectionViewDataSource {
