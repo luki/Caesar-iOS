@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CloudKit
 
 class Cipher {
   var offset: Int
@@ -23,6 +24,13 @@ class Cipher {
   
   convenience init(offset: Int, appliedMethod: Int, content: String) {
     self.init(offset: offset, appliedMethod: appliedMethod, content: content, date: Date())
+  }
+  
+  init(record: CKRecord) {
+    offset = (record["offset"] as? Int)!
+    appliedMethod = (record["appliedMethod"] as? Int)!
+    content = (record["content"] as? String)!
+    date = (record["date"] as? Date)!
   }
   
 }

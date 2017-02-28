@@ -50,7 +50,42 @@ class MainController: UIViewController {
     
     publicDb.save(record) { record, error in
       if record != nil {
-        print("Success")
+        DispatchQueue.main.async {
+          self.textView.resignFirstResponder()
+          self.textView
+                  .text
+                  .characters
+                  .removeAll()
+          
+          let recordModel = Cipher(record: record!)
+          self.createAlert(title: "Hi", message: nil, style: .actionSheet, actions: [
+            UIAlertAction(title: "Dismiss", style: .default) { _ in
+              self.dismiss(animated: true, completion: nil)
+            },
+            UIAlertAction(title: "Delete", style: .destructive) { _ in
+              self.publicDb.delete(withRecordID: (record?.recordID)!) { record, error in
+                
+              }
+            },
+            UIAlertAction(title: "Copy Input", style: .default) { _ in
+            },
+            UIAlertAction(title: "Copy Result", style: .default) { _ in
+              var stringToCopy = ""
+              switch recordModel.appliedMethod {
+                case 0:
+                  stringToCopy = encipher(offset: recordModel.offset, message: recordModel.content)
+                case 1:
+                  stringToCopy = decipher(offset: recordModel.offset, message: recordModel.content)
+                default:
+                  print("An unknown method appeared!")
+              }
+              self.copyToPasteBoard(stringToCopy)
+            },
+            UIAlertAction(title: "Copy Offset", style: .default) { _ in
+              self.copyToPasteBoard(String(recordModel.offset))
+            }
+          ])
+        }
       } else {
         errorMsg = error!.localizedDescription
       }
@@ -170,6 +205,12 @@ class MainController: UIViewController {
   func shiftAction(_ sender: UILabel) {
     sender.becomeFirstResponder()
     print("Test")
+  }
+  
+  // MARK: Helper Methods
+  
+  func copyToPasteBoard(_ input: String) {
+    UIPasteboard.general.string = input
   }
   
 }

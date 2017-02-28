@@ -24,19 +24,28 @@ extension Array {
 class HistoryController: UIViewController {
 
   var cipherHistory: [Cipher] = [
-    Cipher(offset: 7, appliedMethod: 0, content: "oCz GvNO CDNOJMT xGvNN"),
-    Cipher(offset: 7, appliedMethod: 0, content: "oCz GvNO CDNOJMT xGvNN"),
-    Cipher(offset: 9, appliedMethod: 1, content: "The last history class was so"),
+//    Cipher(offset: 7, appliedMethod: 0, content: "oCz GvNO CDNOJMT xGvNN"),
+//    Cipher(offset: 7, appliedMethod: 0, content: "oCz GvNO CDNOJMT xGvNN"),
+//    Cipher(offset: 9, appliedMethod: 1, content: "The last history class was so"),
   ]
   
   let publicDb = CKContainer(identifier: "iCloud.guru.luke.Caesar").publicCloudDatabase
   
-  let button: UIButton = {
+  let closeButton: UIButton = {
     let button = UIButton(frame: CGRect(x: 0, y: 0, width: 88, height: 88))
     button.contentMode = .scaleAspectFit
     button.setImage(UIImage(named: "up"), for: UIControlState.normal)
     button.falseAutoresizingTranslation()
     button.addTarget(self, action: #selector(dismissController), for: .touchUpInside)
+    return button
+  }()
+  
+  let clearHistoryButton: UIButton = {
+    let button = UIButton(frame: CGRect(x: 0, y: 0, width: 88, height: 88))
+    button.contentMode = .scaleAspectFit
+    button.setImage(UIImage(named: "up"), for: UIControlState.normal)
+    button.falseAutoresizingTranslation()
+    button.addTarget(self, action: #selector(clearHistory), for: .touchUpInside)
     return button
   }()
   
@@ -58,22 +67,62 @@ class HistoryController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     view.backgroundColor = UIColor.new(red: 38, green: 50, blue: 56)
-    addSubviewsTo(view, views: button, historyCollection)
+    addSubviewsTo(view, views: closeButton, historyCollection, clearHistoryButton)
     addConstraints(
-      button.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -44),
-      button.topAnchor.constraint(equalTo: view.topAnchor, constant: 44),
+      closeButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -44),
+      closeButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 44),
       
       historyCollection.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 44),
       historyCollection.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -44),
-      historyCollection.topAnchor.constraint(equalTo: button.bottomAnchor, constant: 44),
-      historyCollection.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+      historyCollection.topAnchor.constraint(equalTo: closeButton.bottomAnchor, constant: 44),
+      historyCollection.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+      
+      clearHistoryButton.trailingAnchor.constraint(equalTo: closeButton.leadingAnchor, constant: -8),
+      clearHistoryButton.centerYAnchor.constraint(equalTo: closeButton.centerYAnchor)
+      
     )
+    fetchData(database: publicDb)
   }
   
   // MARK: Target actions
 
   func dismissController(_ sender: UIButton) {
     dismiss(animated: true, completion: nil)
+  }
+  
+  func clearHistory(_ sender: UIButton) {
+    
+  }
+  
+  // MARK: Helper Methods
+  
+  func fetchData(database: CKDatabase) {
+    let query = CKQuery(recordType: "Cipher", predicate: NSPredicate(value: true))
+    database.perform(query, inZoneWith: nil) { results, error in
+      if error != nil {
+        print(error!.localizedDescription)
+      } else {
+        results?.forEach { self.cipherHistory.append(Cipher(record: $0)) }
+        self.historyCollection.reloadData()
+      }
+    }
+  }
+  
+  func clearData(database: CKDatabase) {
+    let query = CKQuery(recordType: "Cipher", predicate: NSPredicate(value: true))
+    database.perform(query, inZoneWith: nil) { results, error in
+      if error != nil {
+        print("Error before deleting: ", error!.localizedDescription)
+      } else {
+        for result in results! {
+          database.delete(withRecordID: result.recordID) { recordId, error in
+            if error != nil {
+              print("Error when deleting: ", error!.localizedDescription)
+            }
+          }
+        }
+      }
+    }
   }
   
 }
