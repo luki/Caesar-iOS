@@ -8,6 +8,7 @@
 
 import UIKit
 import CloudKit
+import CoreData
 
 extension UIView {
   static var reusableIdentifier: String {
@@ -90,7 +91,29 @@ class HistoryController: UIViewController {
       loadingIndicator.trailingAnchor.constraint(equalTo: clearHistoryButton.leadingAnchor, constant: -16),
       loadingIndicator.centerYAnchor.constraint(equalTo: closeButton.centerYAnchor)
     )
-    fetchData(database: publicDb, loadingIndicator: loadingIndicator)
+      fetchData(entityName: "Cipher")
+//    fetchData(database: publicDb, loadingIndicator: loadingIndicator)
+  }
+  
+  // MARK: CoreData
+  
+  func fetchData(entityName: String) {
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    let managedContext = appDelegate.persistentContainer.viewContext
+    
+    let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: entityName)
+    
+    do {
+      let results = try managedContext.fetch(fetchRequest)
+      for result in results as! [NSManagedObject] {
+        cipherHistory.append(Cipher(managedObject: result))
+      }
+      historyCollection.reloadData()
+      
+    }
+    catch let error as NSError {
+      print("Could not fetch \(error.userInfo)")
+    }
   }
   
   // MARK: Target actions

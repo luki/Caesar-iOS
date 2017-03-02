@@ -12,9 +12,7 @@ extension Array {
   public func lastPosition() -> Int {
     return self.count - 1
   }
-}
-
-extension Array {
+  
   public func distanceArray(from: Int, to: Int) -> [Element] {
     var tempArray = [Element]()
     for i in from...to {

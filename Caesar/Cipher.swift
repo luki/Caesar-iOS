@@ -8,6 +8,7 @@
 
 import Foundation
 import CloudKit
+import CoreData
 
 class Cipher {
   var offset: Int
@@ -35,4 +36,29 @@ class Cipher {
     id = record.recordID
   }
   
+  // MARK: CoreData section
+  
+  init(managedObject: NSManagedObject) {
+    offset = managedObject.value(forKey: "offset") as! Int
+    appliedMethod = managedObject.value(forKey: "appliedMethod") as! Int
+    content = managedObject.value(forKey: "content") as! String
+    date = managedObject.value(forKey: "date") as! Date
+  }
+
+  func saveCoreData(appDelegate: AppDelegate) {
+    let managedContext = appDelegate.persistentContainer.viewContext
+    let entity = NSEntityDescription.entity(forEntityName: "Cipher", in: managedContext)
+    let item = NSManagedObject(entity: entity!, insertInto: managedContext)
+    
+    item.setValue(self.offset, forKey: "offset")
+    item.setValue(self.content, forKey: "content")
+    item.setValue(self.appliedMethod, forKey: "appliedMethod")
+    item.setValue(self.date, forKey: "date")
+    
+    do {
+      try managedContext.save()
+    } catch {
+      print("Error saving data")
+    }
+  }
 }

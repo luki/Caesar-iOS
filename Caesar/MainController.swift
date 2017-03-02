@@ -8,6 +8,7 @@
 
 import UIKit
 import CloudKit
+import CoreData
 
 extension UIViewController {
   public func addSubviewsTo(_ view: UIView, views: UIView...) {
@@ -35,10 +36,6 @@ class MainController: UIViewController {
   let publicDb = CKContainer(identifier: "iCloud.guru.luke.Caesar").publicCloudDatabase
   let privateDb = CKContainer(identifier: "iCloud.guru.luke.Caesar").privateCloudDatabase
   
-  let cipherHistory: [Cipher] = [
-    Cipher(offset: 5, appliedMethod: 0, content: "Hi", date: Date())
-  ]
-  
   func createCipherRec(cipher: Cipher) {
     let record = CKRecord(recordType: "Cipher")
     record["appliedMethod"] = cipher.appliedMethod as CKRecordValue?
@@ -65,7 +62,6 @@ class MainController: UIViewController {
           ])
         }
       } else {
-        print("hi")
         DispatchQueue.main.async {
           self.createAlert(title: "Possibly no internet connection!", message: error!.localizedDescription, style: .alert, actions: [
             UIAlertAction(title: "Understood", style: .default) { _ in}
@@ -108,6 +104,7 @@ class MainController: UIViewController {
     field.placeholder = "e.g. 21"
     field.font = UIFont(name: "Okomito-Light", size: 23)
     field.falseAutoresizingTranslation()
+    field.keyboardType = .numberPad
     return field
   }()
   
@@ -128,6 +125,7 @@ class MainController: UIViewController {
     let sc = UISegmentedControl(items: ["Encipher", "Decipher"])
     sc.selectedSegmentIndex = 0
     sc.falseAutoresizingTranslation()
+    sc.tintColor = .green
     return sc
   }()
   
@@ -181,18 +179,9 @@ class MainController: UIViewController {
     self.present(HistoryController(), animated: true, completion: nil)
   }
   
-  func shiftAction(_ sender: UILabel) {
-    sender.becomeFirstResponder()
-    print("Test")
-  }
-  
-  func offsetTapped(_ sender: UIButton) {
-    print("Tap!")
-  }
-  
   // MARK: Helper Methods
   
-  func copyToPasteBoard(_ input: String) {
+  func copyToPasteboard(_ input: String) {
     UIPasteboard.general.string = input
   }
   
@@ -231,7 +220,8 @@ extension MainController: UITextViewDelegate {
               print("Something weird has been selected")
           }
           
-          copyToPasteBoard(cipher.content)
+          cipher.saveCoreData(appDelegate: UIApplication.shared.delegate as! AppDelegate)
+          copyToPasteboard(cipher.content)
           
           createAlert(title: "Cipher has been created & the result saved to your clipboard", message: "Do you want to save it to your private online storage?", style: .actionSheet, actions: [
             UIAlertAction(title: "Upload", style: .default) { _ in
