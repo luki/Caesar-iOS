@@ -109,7 +109,6 @@ class HistoryController: UIViewController {
         cipherHistory.append(Cipher(managedObject: result))
       }
       historyCollection.reloadData()
-      
     }
     catch let error as NSError {
       print("Could not fetch \(error.userInfo)")
@@ -123,10 +122,24 @@ class HistoryController: UIViewController {
   }
   
   func clearHistory(_ sender: UIButton) {
-    clearData(database: publicDb)
+    // Clear CoreData First
+    deleteCoreData(appDelegate: UIApplication.shared.delegate as! AppDelegate)
+    cipherHistory.removeAll()
+    historyCollection.reloadData()
+//    clearData(database: publicDb)
   }
   
   // MARK: Helper Methods
+  
+  func deleteCoreData(appDelegate: AppDelegate) {
+    let managedContext = appDelegate.persistentContainer.viewContext
+    let DelAllReqVar = NSBatchDeleteRequest(fetchRequest: NSFetchRequest<NSFetchRequestResult>(entityName: "Cipher"))
+    do {
+      try managedContext.execute(DelAllReqVar)
+    } catch {
+      print(error)
+    }
+  }
   
   func fetchData(database: CKDatabase, loadingIndicator: UIActivityIndicatorView) {
     loadingIndicator.startAnimating()
