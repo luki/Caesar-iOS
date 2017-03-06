@@ -10,14 +10,20 @@ import UIKit
 import CloudKit
 import CoreData
 
-extension UIViewController {
-  public func addSubviewsTo(_ view: UIView, views: UIView...) {
-    views.forEach { view.addSubview($0) }
-  }
+protocol WithConstraints {}
+extension WithConstraints {
   public func addConstraints(_ constraints: NSLayoutConstraint...) {
     NSLayoutConstraint.activate(constraints)
   }
 }
+
+extension UIViewController: WithConstraints {
+  public func addSubviewsTo(_ view: UIView, views: UIView...) {
+    views.forEach { view.addSubview($0) }
+  }
+}
+
+extension UIView: WithConstraints {}
 
 extension UIView {
   func falseAutoresizingTranslation() {
@@ -36,39 +42,44 @@ class MainController: UIViewController {
   let publicDb = CKContainer(identifier: "iCloud.guru.luke.Caesar").publicCloudDatabase
   let privateDb = CKContainer(identifier: "iCloud.guru.luke.Caesar").privateCloudDatabase
   
-  func createCipherRec(cipher: Cipher) {
-    let record = CKRecord(recordType: "Cipher")
-    record["appliedMethod"] = cipher.appliedMethod as CKRecordValue?
-    record["content"] = cipher.content as CKRecordValue?
-    record["date"] = cipher.date as CKRecordValue?
-    record["offset"] = cipher.offset as CKRecordValue?
+  func uploadCipherRec(cipher: Cipher) {
     
-    publicDb.save(record) { record, error in
-      if record != nil {
-        DispatchQueue.main.async {
-          self.textView.resignFirstResponder()
-          self.textView
-                  .text
-                  .characters
-                  .removeAll()
+      let record = CKRecord(recordType: "Cipher")
+      record["appliedMethod"] = cipher.appliedMethod as CKRecordValue?
+      record["content"] = cipher.content as CKRecordValue?
+      record["date"] = cipher.date as CKRecordValue?
+      record["offset"] = cipher.offset as CKRecordValue?
+    
+      publicDb.save(record) { record, error in
+        if record != nil {
           
-         self.createAlert(title: "Successfully uploaded", message: nil, style: .alert, actions: [
-          UIAlertAction(title: "Got it", style: .default) { _ in
-            self.dismiss(animated: true, completion: nil)
-          },
-          UIAlertAction(title: "Delete", style: .destructive) { _ in
-            self.publicDb.delete(withRecordID: (record?.recordID)!) { _, _ in }
+          DispatchQueue.main.async {
+            self.textView.resignFirstResponder()
+            self.textView
+                    .text
+                    .characters
+                    .removeAll()
+          
+          self.createAlert(title: "Successfully uploaded", message: nil, style: .alert, actions: [
+            UIAlertAction(title: "Got it", style: .default) { _ in
+              self.dismiss(animated: true, completion: nil)
+            },
+            UIAlertAction(title: "Delete", style: .destructive) { _ in
+              self.publicDb.delete(withRecordID: (record?.recordID)!) { _, _ in }
+            }
+            ])
           }
-          ])
-        }
-      } else {
-        DispatchQueue.main.async {
-          self.createAlert(title: "Possibly no internet connection!", message: error!.localizedDescription, style: .alert, actions: [
-            UIAlertAction(title: "Understood", style: .default) { _ in}
-          ])
+        } else {
+          DispatchQueue.main.async {
+            self.createAlert(title: "Possibly no internet connection!", message: error!.localizedDescription, style: .alert, actions: [
+              UIAlertAction(title: "Understood", style: .default) { _ in}
+            ])
+          }
         }
       }
-    }
+  }
+  
+  func synchronizeCloud(cipher: inout Cipher) {
     
   }
   
@@ -225,7 +236,7 @@ extension MainController: UITextViewDelegate {
           
           createAlert(title: "Cipher has been created & the result saved to your clipboard", message: "Do you want to save it to your private online storage?", style: .actionSheet, actions: [
             UIAlertAction(title: "Upload", style: .default) { _ in
-              self.createCipherRec(cipher: cipher)
+              self.uploadCipherRec(cipher: cipher)
             },
             UIAlertAction(title: "Dismiss", style: .default) { _ in
               
