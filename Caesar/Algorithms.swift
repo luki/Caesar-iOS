@@ -25,8 +25,7 @@ extension Array {
 public func shiftSequence(offset: Int, baseSequence: String) -> String {
   var newSequence: String
   
-  var seqArray = [String]()
-  baseSequence.characters.forEach { seqArray.append("\($0)") }
+  let seqArray = baseSequence.characters.map { String($0) }
   
   if offset >= seqArray.count {
     newSequence = seqArray
@@ -53,11 +52,9 @@ public func shiftSequence(offset: Int, baseSequence: String) -> String {
 public func encipher(offset: Int, message: String) -> String {
   let base = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
   
-  var baseSeq = [String]()
-  base.characters.forEach { baseSeq.append("\($0)")}
+  var baseSeq = base.characters.map { String($0) }
   
-  var newSeq = [String]()
-  shiftSequence(offset: offset, baseSequence: base).characters.forEach { newSeq.append("\($0)")}
+  var newSeq = shiftSequence(offset: offset, baseSequence: base).characters.map { String($0) }
   
   var newString = String()
   
@@ -81,11 +78,9 @@ public func encipher(offset: Int, message: String) -> String {
 public func decipher(offset: Int, message: String) -> String {
   let base = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
   
-  var cipherSeq = [String]()
-  shiftSequence(offset: offset, baseSequence: base).characters.forEach { cipherSeq.append("\($0)") }
+  var cipherSeq = shiftSequence(offset: offset, baseSequence: base).characters.map { String($0) }
   
-  var baseSeq = [String]()
-  base.characters.forEach { baseSeq.append("\($0)") }
+  var baseSeq = base.characters.map { String($0) }
   
   var newString = String()
   
