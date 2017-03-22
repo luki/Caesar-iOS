@@ -230,18 +230,13 @@ extension MainController: UITextViewDelegate {
             default:
               print("Something weird has been selected")
           }
+//          cipher.saveCoreData(appDelegate: UIApplication.shared.delegate as! AppDelegate)
           
-          cipher.saveCoreData(appDelegate: UIApplication.shared.delegate as! AppDelegate)
-          copyToPasteboard(cipher.content)
+          present(ResultController(), animated: true) {
+            
+          }
           
-          createAlert(title: "Cipher has been created & the result saved to your clipboard", message: "Do you want to save it to your private online storage?", style: .actionSheet, actions: [
-            UIAlertAction(title: "Upload", style: .default) { _ in
-              self.uploadCipherRec(cipher: cipher)
-            },
-            UIAlertAction(title: "Dismiss", style: .default) { _ in
-              
-            }
-          ])
+          
           return true
         } else {
           createAlert(title: "Offset is not a number", message: nil, style: .alert, actions: [

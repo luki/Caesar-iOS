@@ -10,12 +10,15 @@ import UIKit
 
 class ResultController: UIViewController {
   
+  var cipher = Cipher(offset: 8, appliedMethod: 0, content: "Hello World!")
+  
   let uploadToCloudButton: UIButton = {
     let button = UIButton(frame: CGRect(x: 0, y: 0, width: 88, height: 88))
     button.contentMode = .scaleAspectFit
     button.setImage(UIImage(named: "upload"), for: UIControlState.normal)
     button.falseAutoresizingTranslation()
 //    button.addTarget(self, action: #selector(clearHistory), for: .touchUpInside)
+    button.isEnabled = false
     return button
   }()
   
@@ -24,7 +27,7 @@ class ResultController: UIViewController {
     button.contentMode = .scaleAspectFit
     button.setImage(UIImage(named: "save"), for: UIControlState.normal)
     button.falseAutoresizingTranslation()
-//    button.addTarget(self, action: #selector(closeScreen), for: .touchUpInside)
+    button.addTarget(self, action: #selector(saveAction), for: .touchUpInside)
     return button
   }()
   
@@ -49,7 +52,7 @@ class ResultController: UIViewController {
   let inputTextBlock: InfoBlockView = {
     let ibv = InfoBlockView()
     ibv.falseAutoresizingTranslation()
-    ibv.titleLabel.text = "Input".uppercased()
+    ibv.titleLabel.text = "Plaintext".uppercased()
     ibv.textLabel.text = "Some example text"
     return ibv
   }()
@@ -57,7 +60,7 @@ class ResultController: UIViewController {
   let keyBlock: InfoBlockView = {
     let ibv = InfoBlockView()
     ibv.falseAutoresizingTranslation()
-    ibv.titleLabel.text = "Key".uppercased()
+    ibv.titleLabel.text = "Shift Offset".uppercased()
     ibv.textLabel.text = "21"
     ibv.backgroundColor = .black
     return ibv
@@ -68,7 +71,7 @@ class ResultController: UIViewController {
   let outputTextBlock: InfoBlockView = {
     let ibv = InfoBlockView()
     ibv.falseAutoresizingTranslation()
-    ibv.titleLabel.text = "Output".uppercased()
+    ibv.titleLabel.text = "Ciphertext".uppercased()
     ibv.textLabel.text = "Some example text"
     ibv.titleLabel.textColor = UIColor.new(red: 60, green: 117, blue: 62)
     ibv.textLabel.textColor = .white
@@ -148,6 +151,10 @@ class ResultController: UIViewController {
   
   func copyAction(_ sender: UITapGestureRecognizer) {
     UIPasteboard.general.string = outputTextBlock.textLabel.text
+  }
+  
+  func saveAction(_ sender: UIButton) {
+    cipher.saveCoreData(appDelegate: UIApplication.shared.delegate as! AppDelegate)
   }
   
 }
